@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Plataforma
+  - foc
+  - Fruita
+  - Bomba
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Fons
+  - Water
+  - UI
+  - Mapa
+  - Textos
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Fons
+    uniqueID: 1854232419
+    locked: 0
+  - name: Mapa
+    uniqueID: 4088748145
+    locked: 0
+  - name: UI
+    uniqueID: 1608251729
+    locked: 0
+  - name: Textos
+    uniqueID: 1488106719
+    locked: 0
