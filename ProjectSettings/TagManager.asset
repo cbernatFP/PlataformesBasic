@@ -9,6 +9,10 @@ TagManager:
   - foc
   - Fruita
   - Bomba
+  - Tilemap
+  - Enemic
+  - Kiwi
+  - GameOver
   layers:
   - Default
   - TransparentFX

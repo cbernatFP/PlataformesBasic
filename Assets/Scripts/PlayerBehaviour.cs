@@ -10,22 +10,25 @@ public class PlayerBehaviour : MonoBehaviour
     private SpriteRenderer sr;
     private float speed = 3f;
     private float jumpForce = 2f;
-    private bool isGrounded = true;
+    private bool tocaTerra = true;  // Per controlar si el personatge toca terra. Si no toca terra no pot saltar
 
     private int contVides = 3;
-    private int contFruites = 0;
-    public TextMeshProUGUI txtVides;
-    public TextMeshProUGUI txtFruites;
-    private bool esInmune = false;
+    private int contPunts = 0;
+    public TextMeshProUGUI txtVides;   // Els components de text on pintarem vides i punts
+    public TextMeshProUGUI txtPunts;
+    public TextMeshProUGUI txtMissatge;
+    private bool esInmune = false;     // Quan el personatge recull una poma activarem la inmunitat
 
 
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();    // Agafem el component RigidBody. Per moure el Player
+        sr = GetComponent<SpriteRenderer>(); // Agafem el component RigidBody. Per canviar l'aparença
 
 
         txtVides.text = "Vides: 3";
-        txtFruites.text = "Fruites: 0";
+        txtPunts.text = "Punts: 0";
+        txtMissatge.text = "";
+
     }
 
     void Update() {
@@ -33,63 +36,80 @@ public class PlayerBehaviour : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
 
-        // Salt
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+        // Salt. Només es pot saltar mentre estem tocant a terra
+        // Quan comencem a saltar "guardem" que ja no toca terra
+        if (Input.GetKeyDown(KeyCode.Space) && tocaTerra) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            isGrounded = false;
+            tocaTerra = false;
         }
     }
 
     // Detectar totes les col·lisions
     void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log("1111");
 
+        // Si toquem "terra"
         if ((collision.gameObject.tag == "Ground") || (collision.gameObject.tag == "Plataforma")) {
-            isGrounded = true;
+            tocaTerra = true;
         }
 
+        // Hem col.lisionat amb una fruita
         if (collision.gameObject.tag == "Fruita") {
             Destroy(collision.gameObject);
-            contFruites++;
+            txtMissatge.text = "";
 
-            if (collision.gameObject.name=="Apple")
+            // La fruita és una poma
+            if (collision.gameObject.name == "Apple") {
                 StartCoroutine(ActivarInmunidad());
-        }
-
-        if (collision.gameObject.tag == "Bomba") {
-            if (!esInmune) { 
-                contVides--;
-                if (contVides < 1)
-                    Destroy(this.gameObject);
+                contPunts += 5;
             }
+            else   // La fruita és una síndria
+                contPunts++;
         }
 
-        if (collision.gameObject.tag == "foc") { 
+        // Si ens cau una bomba només només perdem una vida quan no som inmunes
+        // Si perdem totes les vides, Game Over
+        if (collision.gameObject.tag == "Bomba") {      // If anidat
             if (!esInmune) {
-                Destroy(this.gameObject);
+                contVides--;
+                if (contVides == 0)
+                    SceneManager.LoadScene("GameOver");
             }
         }
 
-        if ((collision.gameObject.name == "Nivell2") && (contFruites >=2)) {
-            SceneManager.LoadScene(2);
+        // Si caiem al foc i no som inmunes, Game Over
+        if ((collision.gameObject.tag == "foc") && (!esInmune))  //If amb dues condicions
+            SceneManager.LoadScene("GameOver");
+        
+
+        // Si arribem a la marca per canviar de nivell....
+        if (collision.gameObject.name == "Nivell2") {
+            if (contPunts > 3)
+                SceneManager.LoadScene(2);
+            else
+                txtMissatge.text = "Per passar al nivell 2 has de tenir 3 punts";
         }
 
+        // Un cop gestionades les col.lisions actualitzem els "comptadors"
         txtVides.text = "Vides: " + contVides;
-        txtFruites.text = "Fruites: " + contFruites;
+        txtPunts.text = "Fruites: " + contPunts;
     }
 
 
     private IEnumerator ActivarInmunidad() {
-        esInmune = true;  // Activar inmunidad
-        sr.color = Color.red;
-        transform.localScale += new Vector3(0.5f, 0.5f, 0f);
-        jumpForce = 5f;
-        yield return new WaitForSeconds(10);  // Esperar 2 segundos
-        esInmune = false; // Desactivar inmunidad
+        // Activem la inmunitat
+        esInmune = true;                                        // Activar inmunidad
+        sr.color = Color.red;                                   // Posar-lo de color vermell
+        transform.localScale += new Vector3(0.5f, 0.5f, 0f);    // Fer-lo més gran
+        jumpForce = 5f;                                         // Salta molt
+
+        // Esperaem
+        yield return new WaitForSeconds(10);  
+
+        // Desactivem al inmunitat
+        esInmune = false; 
         sr.color = Color.white;
         jumpForce = 2f;
         transform.localScale -= new Vector3(0.5f, 0.5f, 0f);
-
     }
 
 }
