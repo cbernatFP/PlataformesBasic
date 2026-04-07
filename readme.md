@@ -1,7 +1,7 @@
 # Joc de plataformes Bàsic
+![Escena1](escena1.jpg)
 
-Pixel Art Assets per Jugadors i mapa
-
+Basat en [Pixel Adventure](https://assetstore.unity.com/packages/2d/characters/pixel-adventure-1-155360) per fer el mapa i els jugadors
 ## Nivell1
 
 - **Jugador**
@@ -14,35 +14,35 @@ Pixel Art Assets per Jugadors i mapa
 - **Codi ben estructurat**, ben indentat i fàcil de llegir
 - **Recol.lecció de fruites**
     - Tenen diferents valors (apple 5pt, síndria 1pt)
-    - La poma dóna inmunitat
+    - La poma dóna immunitat
         - canvi de color
         - canvi de mida
         - no mor quan li cau una bomba
 
 - **Canvis d'escena**
-   - Associat a botó escena inicial
+   - Associat a botó escena inicial. Codi senzill
    - Associat al punt de canvi de nivell en detectar col.lisió
 
 - **Música de fons** (nivell1)
-- **Fonts** diferents pels botons i misstges (DaFont.com)
+- **Fonts** diferents pels botons i missatges (DaFont.com)
 - **Tags vs Name** per detectar l'objecte col.lisionat
 - **Cauen bombes aleatòriament**
-    - Empty object **Crear bomes**
+    - Empty object amb un Script per **Crear bomes**
     - Maten el Player si no és inmune. Desapareixen quan toquen el Tilemap
 
 
 ## Nivell2
 - **Mapa més gran**
-- **La càmera segueix el protagonista**
-- **Spawpoint**. Quan mor però li queden vides torna al principi
+- **La càmera segueix el jugador**
+- **Spawnpoint**. Quan mor però li queden vides torna al principi
 - **Pou**. Si el player cau del mapa mor. Detecta col.lisió amb empty object
 
 
 # To Do
 - Fons nivell 2
 - Efectes sonors
-- Posar pantall Game Over
+- Posar pantalla Game Over
     - Tancar joc
-    - Recomançar
+    - Recomençar
 - Efecte desaparèixer fruites
 - Intercanvi animacions Player. Idle-Running-Jump????

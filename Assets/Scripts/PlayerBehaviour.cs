@@ -79,7 +79,7 @@ public class PlayerBehaviour : MonoBehaviour
         // Si caiem al foc i no som inmunes, Game Over
         if ((collision.gameObject.tag == "foc") && (!esInmune))  //If amb dues condicions
             SceneManager.LoadScene("GameOver");
-        
+
 
         // Si arribem a la marca per canviar de nivell....
         if (collision.gameObject.name == "Nivell2") {
@@ -103,10 +103,10 @@ public class PlayerBehaviour : MonoBehaviour
         jumpForce = 5f;                                         // Salta molt
 
         // Esperaem
-        yield return new WaitForSeconds(10);  
+        yield return new WaitForSeconds(10);
 
         // Desactivem al inmunitat
-        esInmune = false; 
+        esInmune = false;
         sr.color = Color.white;
         jumpForce = 2f;
         transform.localScale -= new Vector3(0.5f, 0.5f, 0f);

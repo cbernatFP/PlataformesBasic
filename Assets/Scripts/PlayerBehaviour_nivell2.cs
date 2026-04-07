@@ -8,6 +8,8 @@ public class PlayerBehaviour_Nivell2 : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    public Animator myAnimator;
+
     private float speed = 3f;
     private float jumpForce = 4f;
     private bool isGrounded = true;
@@ -15,16 +17,14 @@ public class PlayerBehaviour_Nivell2 : MonoBehaviour
     private int contVides = 3;
     private int contPunts = 0;
     public TextMeshProUGUI txtVides;   //Els components de text on pintarem vides i punts
-    public TextMeshProUGUI txtPunts;
+    //public TextMeshProUGUI txtPunts;
 
     public Transform spawnPoint;
-
-
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-
+        myAnimator = GetComponent<Animator>();
 
         txtVides.text = "Vides: 3";
         //txtPunts.text = "Punts: 0";
@@ -34,25 +34,27 @@ public class PlayerBehaviour_Nivell2 : MonoBehaviour
 
         // Moviment horitzontal
         float moveX = Input.GetAxis("Horizontal");
-        Debug.Log(moveX);
         rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
 
         // Salt
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isGrounded = false;
+            myAnimator.SetBool("isJumping", true);  // Si SALTEM canviarem l'animació
         }
     }
 
     // Tractar totes les col·lisions detectades
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Tilemap") 
+        if (collision.gameObject.tag == "Tilemap") {
             isGrounded = true;
-        
+            myAnimator.SetBool("isJumping", false);  //QUAN PAREM DE SALTAR tornarem a canviar l'animació
+        }
+
         if (collision.gameObject.tag == "GameOver") {
             contVides--;
-        
-            if (contVides == 0) 
+
+            if (contVides == 0)
                 SceneManager.LoadScene("GameOver");
             else
                 transform.position = spawnPoint.position;
@@ -61,6 +63,5 @@ public class PlayerBehaviour_Nivell2 : MonoBehaviour
         txtVides.text = "Vides: " + contVides;
         //txtPunts.text = "Punts: " + contPunts;
     }
-
 
 }

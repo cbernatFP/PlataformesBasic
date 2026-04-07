@@ -6,7 +6,7 @@ using UnityEngine;
 public class RockHeadBehaviour : MonoBehaviour
 {
     private float velocityY = 0.5f;
- 
+
 
     // Start is called before the first frame update
     void Start() {
@@ -16,7 +16,7 @@ public class RockHeadBehaviour : MonoBehaviour
     // Creem un moviment bàsic 
     // Es mou en vertical, amunt i avall entre 2 punts
     void Update() {
-        transform.Translate(0, velocityY * Time.deltaTime,  0);
+        transform.Translate(0, velocityY * Time.deltaTime, 0);
 
         //El component transform és tan bàsic
         //que el podem fer servir diretament sense crear una variable.
