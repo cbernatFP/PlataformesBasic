@@ -36,13 +36,12 @@ Basat en [Pixel Adventure](https://assetstore.unity.com/packages/2d/characters/p
 - **La càmera segueix el jugador**
 - **Spawnpoint**. Quan mor però li queden vides torna al principi
 - **Pou**. Si el player cau del mapa mor. Detecta col.lisió amb empty object
+- **Intercanvi d'animacions** (transicions). Quan el jugador salta canvia l'animació
 
+## Pantalla Inicial i Pantalla Game Over
+- Amb els canvis d'escena corresponents
 
 # To Do
 - Fons nivell 2
 - Efectes sonors
-- Posar pantalla Game Over
-    - Tancar joc
-    - Recomençar
 - Efecte desaparèixer fruites
-- Intercanvi animacions Player. Idle-Running-Jump????
